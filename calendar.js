@@ -294,14 +294,20 @@ const visible=item=>!hiddenGroups.has(groupOf(item))&&
 const range=item=>item.time||label(parse(item.start))+(item.start===item.end?'':'–'+label(parse(item.end)));
 function button(item,index,extra='',style='',agenda=false){
  const name=item.stripName||item.title;
- const badge=item.tier&&item.tier!=='low'?'<span class="tier">'+tierLabels[item.tier]+'</span>':'';
- return '<button class="event '+(item.raid?'raid ':'')+(item.color||'general')+extra+'" data-event="'+index+'" style="'+style+'" title="'+name+' · '+range(item)+'" aria-label="'+(item.tier?(categories[item.tier]||'三星與一星團體戰')+'，':'')+name+'，'+range(item)+'">'+badge+name+(agenda?' · '+range(item):'')+'</button>';
+ const compact = mobileView && extra.includes(' span');
+ const caption = compact ? (item.stripName || item.short || name).replace(/^\[[^\]]+\]\s*/, '') : name;
+ const badge=!compact && item.tier&&item.tier!=='low'?'<span class="tier">'+tierLabels[item.tier]+'</span>':'';
+ return '<button class="event '+(item.raid?'raid ':'')+(item.color||'general')+extra+'" data-event="'+index+'" style="'+style+'" title="'+name+' · '+range(item)+'" aria-label="'+(item.tier?(categories[item.tier]||'三星與一星團體戰')+'，':'')+name+'，'+range(item)+'">'+badge+caption+(agenda?' · '+range(item):'')+'</button>';
 }
 function weekRow(start,month){
  const dates=Array.from({length:7},(_,i)=>add(start,i));
  const keys=dates.map(dateKey);
  const heads=dates.map((date,i)=>{
   const col=' style="grid-column:'+(i+1)+'"';
+  if(mobileView) {
+   const outside=date.getUTCMonth()!==month?' outside':'';
+   return '<button class="phone-date'+outside+'" data-day="'+keys[i]+'" aria-label="'+keys[i]+'" aria-pressed="'+(keys[i]===dateKey(anchor))+'"'+col+'>'+date.getUTCDate()+'</button>';
+  }
   return '<div class="day-bg '+(date.getUTCMonth()!==month?'outside':'')+'"'+col+'></div><div class="date-num '+(keys[i]===taipeiToday?'current':'')+'"'+col+'><strong>'+date.getUTCDate()+'</strong></div>';
  }).join('');
  const lanes=[];
@@ -358,14 +364,11 @@ function renderMobileMonth() {
  const offset = (first.getUTCDay()+6)%7;
  const filtered = orderedEvents.filter(({item}) => visible(item));
  const dayItems = key => filtered.filter(({item}) => item.start <= key && item.end >= key);
- const days = Array.from({length: count}, (_, i) => {
-  const key = dateKey(add(first, i));
-  const num = dayItems(key).length;
-  return '<button data-day="'+key+'" aria-pressed="'+(key===selected)+'" aria-label="'+key+'，'+num+' 筆活動">'+(i+1)+(num?'<i></i>':'')+'</button>';
- });
+ const firstWeek=add(first,-offset);
+ const weeks=Array.from({length:Math.ceil((offset+count)/7)},(_,i)=>weekRow(add(firstWeek,7*i),month));
  const items = dayItems(selected);
- $('calendar').innerHTML = '<div class="phone-month">'+Array.from('一二三四五六日', d=>'<span>'+d+'</span>').join('')+
-  '<span></span>'.repeat(offset)+days.join('')+'</div><h3>'+label(anchor)+' 活動</h3>'+
+ $('calendar').innerHTML = '<div class="phone-month"><div class="phone-weekdays">'+
+  Array.from('一二三四五六日',d=>'<span>'+d+'</span>').join('')+'</div>'+weeks.join('')+'</div><h3>'+label(anchor)+' 活動</h3>'+
   (items.length ? '<ul class="agenda">'+items.map(({item,index})=>'<li>'+button(item,index,'','',true)+'</li>').join('')+'</ul>' : '<p>這天沒有符合的活動。</p>');
 }
 function shift(direction){
@@ -378,7 +381,7 @@ $('today').onclick=()=>{anchor=parse(taipeiToday);render();};
 for(const view of ['month','week']) $(view).onclick=()=>{mode=view;render();};
 $('calendar').onclick=event=>{
  const day=event.target.closest('[data-day]');
- if(day){anchor=parse(day.dataset.day);render();return;}
+ if(day){anchor=parse(day.dataset.day);render();$('calendar').querySelector('h3')?.scrollIntoView({block:'start'});return;}
  const button=event.target.closest('[data-event]');
  if(!button)return;
  showDetail(events[Number(button.dataset.event)]);
