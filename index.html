@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-Hant">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pokémon GO 活動行事曆</title>
+<style>
+:root{color-scheme:light;--ink:#122d32;--muted:#4f676a;--line:#cbd9d7;--paper:#f3f7f5}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px system-ui,sans-serif}header{background:#103a3a;color:#fff;padding:32px max(20px,calc((100% - 1120px)/2));}header p{margin:0;color:#aee1d0}h1{font-size:clamp(27px,5vw,44px);margin:6px 0 0}main{max-width:1160px;margin:auto;padding:24px 20px}.toolbar,.nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.toolbar{justify-content:space-between;margin-bottom:14px}button{font:inherit;color:inherit;cursor:pointer;border:1px solid var(--line);border-radius:7px;background:white;padding:8px 12px}button[aria-pressed=true]{background:#15554b;color:white}h2{margin:0 8px;font-size:22px}.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}.weekday,.day{background:white;padding:7px;min-width:0}.weekday{text-align:center;font-size:13px}.day{min-height:100px}.outside{background:#eaf1ef}.current strong{color:#056656;text-decoration:underline}.event{display:block;text-align:left;width:100%;margin:5px 0;padding:4px 6px;background:#e1f3ec;border:0;border-left:3px solid #267a66;font-size:13px;overflow-wrap:anywhere}.raid{background:#eeeafd;border-color:#6654ab}.agenda{list-style:none;padding:0;margin:0}.agenda li{border-top:1px solid var(--line);padding:12px 0}.agenda .event{font-size:16px;padding:10px}.muted{color:var(--muted);font-size:14px}dialog{width:min(640px,calc(100% - 24px));max-height:90dvh;border:0;border-radius:12px;padding:22px;color:inherit}dialog::backdrop{background:#092c32a9}dialog form{text-align:right}dialog h2{margin:4px 0}table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:8px 4px;text-align:left;border-bottom:1px solid var(--line)}a{color:#096755}@media(max-width:560px){main{padding:16px 10px}.day{padding:3px;min-height:63px}.event{font-size:11px;padding:3px 1px}.toolbar{align-items:flex-start}header{padding:20px}}
+</style>
+<header><p>POKÉMON GO · 台灣時間</p><h1>活動行事曆</h1></header>
+<main>
+<p class="muted">2026 年 11 月樣本資料 · 手動整理</p>
+<div class="toolbar"><div class="nav"><button id="prev" aria-label="上一期">‹</button><h2 id="period" aria-live="polite"></h2><button id="next" aria-label="下一期">›</button><button id="today">今天</button></div><div class="nav"><button id="month">月曆</button><button id="week">七天列表</button></div></div>
+<div id="calendar"></div>
+</main>
+<dialog id="detail"><form method="dialog"><button>關閉</button></form><div id="body"></div></dialog>
+<script>
+const events = [
+ {title:'五星與超級團體戰輪替',short:'團體戰輪替',raid:true,start:'2026-11-16',end:'2026-11-24',time:'11/16～11/24（截止時間待確認）',summary:'五星為克雷色利亞、達克萊伊，超級團體戰為超級詛咒娃娃。',community:'GO Hub 列 11/24 10:00 結束，Leek Duck 列 22:00。',links:[['GO Hub','https://pokemongohub.net/post/guide/current-go-raids/'],['Leek Duck','https://leekduck.com/events/'],['捕獲 CP 交叉查詢','https://www.hundo-hunter.com/raids'],['詛咒娃娃 CP','https://pokemongohub.net/post/guide/mega-banette-raid-guide/']],cp:[['克雷色利亞','1555–1633','1944–2041','強風'],['達克萊伊','2048–2136','2560–2671','霧'],['詛咒娃娃','1244–1313','1555–1642','霧']]},
+ {title:'Twilight Wishes',short:'Twilight Wishes',start:'2026-11-24',end:'2026-11-30',time:'11/24 10:00 ～ 11/30 20:00',summary:'異色海星星與小灰怪出現機率提高。活動 GO Pass 第 10 級解鎖 2 倍捕捉星塵，豪華版為 3 倍。',community:'GO Hub 整理了服裝團體戰陣容，包含日之圍巾太陽伊布與月之圍巾月亮伊布。',links:[['官方公告','https://pokemongo.com/news/twilight-wishes-2026'],['GO Hub 攻略','https://pokemongohub.net/post/event/twilight-wishes-2026/']],raidPending:true},
+ {title:'代歐奇希斯團體戰時刻',short:'代歐奇希斯',raid:true,start:'2026-11-25',end:'2026-11-25',time:'11/25 18:00–19:00',summary:'普通、攻擊、防禦與速度四種形態登場。',links:[['Leek Duck','https://leekduck.com/events/']],raidPending:true},
+ {title:'皮可西超級團體戰日',short:'超級皮可西',raid:true,start:'2026-11-28',end:'2026-11-28',time:'11/28 14:00–17:00',summary:'超級皮可西首次登場。道館最多提供 6 張免費入場券，捕獲的皮可西已解鎖超級等級 1。',links:[['官方公告','https://pokemongo.com/en/news/clefable-super-mega-raid-day-2026']],raidPending:true}
+];
+const $ = id => document.getElementById(id);
+const dateKey = date => date.toISOString().slice(0,10);
+const parse = key => new Date(key+'T00:00:00Z');
+const add = (date,days) => new Date(date.getTime()+days*86400000);
+const taipeiToday = new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Taipei'}).format(new Date());
+let anchor = parse(taipeiToday.startsWith('2026-11') ? taipeiToday : '2026-11-22');
+let mode = matchMedia('(max-width: 650px)').matches ? 'week' : 'month';
+const label = date => dateKey(date).slice(5).replace('-','/');
+function eventButtons(date, short) {
+ const key = dateKey(date);
+ return events.map((event,index) => event.start <= key && key <= event.end ?
+ '<button class="event '+(event.raid?'raid':'')+'" data-event="'+index+'" aria-label="'+event.title+'">'+(short?event.short:event.title+' · '+event.time)+'</button>' : '').join('');
+}
+function render(){
+ for(const view of ['month','week']) $(view).setAttribute('aria-pressed',String(mode===view));
+ const year=anchor.getUTCFullYear(), month=anchor.getUTCMonth();
+ if(mode==='week'){
+  $('period').textContent=label(anchor)+'～'+label(add(anchor,6));
+  $('calendar').innerHTML='<ul class="agenda">'+Array.from({length:7},(_,i)=>{
+   const date=add(anchor,i);
+   return '<li><strong>'+label(date)+'（'+'日一二三四五六'[date.getUTCDay()]+'）</strong>'+(eventButtons(date,false)||' <span class="muted">無樣本活動</span>')+'</li>';
+  }).join('')+'</ul>';
+  return;
+ }
+ $('period').textContent=year+' 年 '+(month+1)+' 月';
+ const first=new Date(Date.UTC(year,month,1));
+ const start=add(first,-first.getUTCDay());
+ const days=new Date(Date.UTC(year,month+1,0)).getUTCDate();
+ const count=Math.ceil((first.getUTCDay()+days)/7)*7;
+ $('calendar').innerHTML='<div class="grid">'+[...'日一二三四五六'].map(day=>'<div class="weekday">'+day+'</div>').join('')+Array.from({length:count},(_,i)=>{
+  const date=add(start,i);
+  return '<div class="day '+(date.getUTCMonth()!==month?'outside ':'')+(dateKey(date)===taipeiToday?'current':'')+'"><strong>'+date.getUTCDate()+'</strong>'+eventButtons(date,true)+'</div>';
+ }).join('')+'</div>';
+}
+function shift(direction){
+ anchor=mode==='week'?add(anchor,7*direction):new Date(Date.UTC(anchor.getUTCFullYear(),anchor.getUTCMonth()+direction,1));
+ render();
+}
+$('prev').onclick=()=>shift(-1);
+$('next').onclick=()=>shift(1);
+$('today').onclick=()=>{anchor=parse(taipeiToday);render();};
+for(const view of ['month','week']) $(view).onclick=()=>{mode=view;render();};
+$('calendar').onclick=event=>{
+ const button=event.target.closest('[data-event]');
+ if(!button)return;
+ const item=events[Number(button.dataset.event)];
+ $('body').innerHTML='<h2 id="event-title">'+item.title+'</h2><p>'+item.time+' · 台灣時間</p><p>'+item.summary+'</p>'+
+ (item.community?'<h3>玩家整理</h3><p>'+item.community+'</p>':'')+
+ (item.cp?'<h3>捕獲 CP</h3><table><thead><tr><th>捕獲寶可夢</th><th>Lv.20</th><th>Lv.25</th><th>加成天氣</th></tr></thead><tbody>'+item.cp.map(row=>'<tr>'+row.map(cell=>'<td>'+cell+'</td>').join('')+'</tr>').join('')+'</tbody></table>':item.raidPending?'<p class="muted">捕獲 CP 尚未收錄。</p>':'')+
+ '<h3>來源</h3><ul>'+item.links.map(([name,url])=>'<li><a href="'+url+'" target="_blank" rel="noopener">'+name+'</a></li>').join('')+'</ul>';
+ $('detail').showModal();
+};
+$('detail').setAttribute('aria-labelledby','event-title');
+render();
+</script>
+</html>
