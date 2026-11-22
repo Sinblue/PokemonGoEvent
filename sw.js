@@ -1,5 +1,5 @@
 const cachePrefix = 'pokemon-go-event-calendar-';
-const cacheName = cachePrefix + 'v4';
+const cacheName = cachePrefix + 'v5';
 const base = new URL(self.registration.scope);
 const index = new URL('index.html', base);
 const mobileIndex = new URL('mobile/index.html', base);
