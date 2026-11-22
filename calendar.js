@@ -1,5 +1,5 @@
 const previous = [
- {title:'五星與超級團體戰輪替',short:'團體戰輪替',raid:true,start:'2026-11-16',end:'2026-11-24',time:'11/16～11/24（截止時間待確認）',summary:'五星為克雷色利亞、達克萊伊，超級團體戰為超級詛咒娃娃。',community:'GO Hub 列 11/24 10:00 結束，Leek Duck 列 22:00。',links:[['GO Hub','https://pokemongohub.net/post/guide/current-go-raids/'],['Leek Duck','https://leekduck.com/events/'],['捕獲 CP 交叉查詢','https://www.hundo-hunter.com/raids'],['詛咒娃娃 CP','https://pokemongohub.net/post/guide/mega-banette-raid-guide/']],cp:[['克雷色利亞','1555–1633','1944–2041','強風'],['達克萊伊','2048–2136','2560–2671','霧'],['詛咒娃娃','1244–1313','1555–1642','霧']]},
+ {title:'五星與超級團體戰輪替',short:'團體戰輪替',raid:true,start:'2026-11-16',end:'2026-11-24',time:'11/16 06:00–11/24 22:00',summary:'五星為克雷色利亞、達克萊伊，超級團體戰為超級詛咒娃娃。',community:'11/23 週報與 Leek Duck 的個別場次均列 11/24 22:00 結束。',links:[['GO Hub 11/23 週報','https://pokemongohub.net/post/news/this-week-in-pokemon-go-november-23-29-2026/'],['Leek Duck 五星','https://leekduck.com/events/cresselia-darkrai-in-5-star-raid-battles-november-2026/'],['Leek Duck 超級','https://leekduck.com/events/mega-banette-in-mega-raids-november-2026/'],['捕獲 CP 交叉查詢','https://www.hundo-hunter.com/raids'],['詛咒娃娃 CP','https://pokemongohub.net/post/guide/mega-banette-raid-guide/']],cp:[['克雷色利亞','1555–1633','1944–2041','強風'],['達克萊伊','2048–2136','2560–2671','霧'],['詛咒娃娃','1244–1313','1555–1642','霧']]},
  {title:'Twilight Wishes',short:'Twilight Wishes',start:'2026-11-24',end:'2026-11-30',time:'11/24 10:00 ～ 11/30 20:00',summary:'異色海星星與小灰怪出現機率提高。活動 GO Pass 第 10 級解鎖 2 倍捕捉星塵，豪華版為 3 倍。',community:'GO Hub 整理了服裝團體戰陣容，包含日之圍巾太陽伊布與月之圍巾月亮伊布。',links:[['官方公告','https://pokemongo.com/news/twilight-wishes-2026'],['GO Hub 攻略','https://pokemongohub.net/post/event/twilight-wishes-2026/']],raidPending:true},
  {title:'代歐奇希斯團體戰時刻',short:'代歐奇希斯',raid:true,start:'2026-11-25',end:'2026-11-25',time:'11/25 18:00–19:00',summary:'普通、攻擊、防禦與速度四種形態登場。',links:[['Leek Duck','https://leekduck.com/events/']],raidPending:true},
  {title:'皮可西超級團體戰日',short:'超級皮可西',raid:true,start:'2026-11-28',end:'2026-11-28',time:'11/28 14:00–17:00',summary:'超級皮可西首次登場。道館最多提供 6 張免費入場券，捕獲的皮可西已解鎖超級等級 1。',links:[['官方公告','https://pokemongo.com/en/news/clefable-super-mega-raid-day-2026']],raidPending:true}
@@ -15,12 +15,17 @@ const rotations=[
  ['2026-11-09','2026-11-13','蒼響／藏瑪然特',{five:'劍之王蒼響、盾之王藏瑪然特'}],
  ['2026-11-14','2026-11-14','捷克羅姆／焰白酋雷姆',{five:'捷克羅姆、焰白酋雷姆'}],
  ['2026-11-15','2026-11-15','萊希拉姆／闇黑酋雷姆',{five:'萊希拉姆、闇黑酋雷姆'}],
- ['2026-11-16','2026-11-24','克雷色利亞／達克萊伊',{five:'克雷色利亞、達克萊伊',three:'嘎啦嘎啦（阿羅拉）、酷豹、泥偶巨人',one:'喵喵（阿羅拉）、夢妖、哭哭面具（伽勒爾）、沙丘娃',mega:'超級詛咒娃娃'},'11/16 06:00–11/24 10:00（GO Hub）'],
- ['2026-11-25','2026-12-01','代歐奇希斯／超級巨金怪',{five:'代歐奇希斯（普通、攻擊、防禦、速度）',mega:'超級巨金怪'}]
+ ['2026-11-16','2026-11-24','克雷色利亞／達克萊伊',{five:'克雷色利亞、達克萊伊',three:'嘎啦嘎啦（阿羅拉）、酷豹、泥偶巨人',one:'喵喵（阿羅拉）、夢妖、哭哭面具（伽勒爾）、沙丘娃',mega:'超級詛咒娃娃'},previous[0].time],
+ ['2026-11-25','2026-12-01','代歐奇希斯／超級巨金怪',{five:'代歐奇希斯（普通、攻擊、防禦、速度）',mega:'超級巨金怪'},'11/25 06:00–12/1 22:00']
 ].map(([start,end,title,bosses,time],index)=>raid(start,end,title,bosses,index%2?'b':'a',time));
 rotations[5].cp=previous[0].cp;
 rotations[5].community=previous[0].community;
-rotations[5].links=[...sources,...previous[0].links.slice(1)];
+rotations[5].links=previous[0].links;
+rotations[6].links=[
+ ['GO Hub 11/23 週報','https://pokemongohub.net/post/news/this-week-in-pokemon-go-november-23-29-2026/'],
+ ['Leek Duck 五星','https://leekduck.com/events/deoxys-normal-defense-attack-speed-formes-in-5-star-raid-battles-november-2026/'],
+ ['Leek Duck 超級','https://leekduck.com/events/mega-metagross-in-mega-raids-november-2026/']
+];
 const weekends=[
  ['2026-10-31','2026-11-01','暗影土地雲（化身）'],
  ['2026-11-07','2026-11-08','暗影龍捲雲（化身）'],
@@ -218,14 +223,30 @@ for(const item of events.filter(event=>event.kind==='spotlight')){
 }
 
 
+events.push(
+ {title:'新光三越限定明信片',start:'2026-10-01',end:'2026-12-31',kind:'general',time:'10/1–12/31（起訖時刻未公布）',
+  summary:'在全台指定新光三越店點附近旋轉寶可補給站，可蒐集 6 款地區限定遊戲內明信片。',
+  links:[['官方繁中公告','https://pokemongo.com/zh-Hant/news/2026oct-skmtw']]},
+ {title:'Pokémon GO × Duolingo 限時調查',start:'2026-11-17',end:'2026-12-31',kind:'general',time:'11/17 09:00–12/31 23:59',
+  summary:'12/21 23:59 前開始 Duolingo 特別任務，12/29 23:59 前在 7 個不同日期各完成至少一堂課並領取優惠代碼。到 Pokémon GO Web Store 兌換後，須在 12/31 23:59 前完成調查並領獎。',
+  sections:{other:['可遇到帶特別背卡的皮卡丘、喵喵、聒噪鳥及路卡利歐，有機會遇見異色。']},
+  links:[['官方繁中公告','https://pokemongo.com/zh-Hant/news/duolingo-2026']]}
+);
+
 const decemberSources={
  dates:'https://pokemongo.com/news/save-the-date-s25',
  community:'https://pokemongo.com/zh-Hant/news/community-day-december-2026',
  meteor:'https://pokemongo.com/news/minior-meteor-showers-2026'
 };
-for(const [day,title] of [['05','極巨對戰日'],['19','團體戰日'],['26','孵化日']]){
+for(const [day,title,hours,slug] of [
+ ['05','極巨對戰日','14:00–17:00','max-battle-day'],
+ ['19','團體戰日','14:00–17:00','raid-day'],
+ ['26','孵化日','11:00–17:00','hatch-day']
+]){
  const start='2026-12-'+day;
- events.push({title,start,end:start,kind:'general',summary:'官方已公布日期，時間與主打寶可夢待公布。',links:[['官方日期公告',decemberSources.dates]]});
+ events.push({title,start,end:start,kind:'general',time:'12/'+Number(day)+' '+hours+'（Leek Duck，官方時間待確認）',
+  summary:'官方已公布日期，主打寶可夢與加碼待公布。',
+  links:[['官方日期公告',decemberSources.dates],['Leek Duck','https://leekduck.com/events/'+slug+'-december-2026/']]});
 }
 events.push({title:'小隕星流星雨：雙子座',start:'2026-12-11',end:'2026-12-16',kind:'general',time:'12/11 17:00–12/16 23:59',links:[['官方公告',decemberSources.meteor]],sections:{
  debut:['北半球與南半球各有一種小隕星核心顏色首次登場，顏色待公布。'],
