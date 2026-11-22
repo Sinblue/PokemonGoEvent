@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-Hant" data-layout="mobile">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#103a3a">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/calendar-192.png">
+<link rel="stylesheet" href="./mobile.css">
+<title>Pokémon GO 活動行事曆</title>
+<link rel="stylesheet" href="../calendar.css">
+
+<header><p>POKÉMON GO · 台灣時間</p><h1>活動行事曆</h1></header>
+<main>
+<section class="calendar-controls" aria-label="行事曆控制項"><div class="controls-content">
+<p class="muted">2026 年 10–12 月活動 · 手動整理</p>
+<div class="toolbar"><div class="nav"><button id="prev" aria-label="上一期">‹</button><h2 id="period" aria-live="polite"></h2><button id="next" aria-label="下一期">›</button><button id="today">今天</button></div><div class="nav"><button id="month">月曆</button><button id="week">七天列表</button></div></div>
+<details class="phone-filters"><summary>篩選活動</summary><div id="category-toggles" class="legend category-toggles" role="group" aria-label="顯示或隱藏活動分類"><button type="button" data-group="general" aria-pressed="true" aria-controls="calendar"><span class="general" aria-hidden="true"></span>一般活動</button><button type="button" data-group="communityDay" aria-pressed="true" aria-controls="calendar"><span class="community-day" aria-hidden="true"></span>社群日</button><button type="button" data-group="five" aria-pressed="true" aria-controls="calendar"><span class="five-a" aria-hidden="true"></span><span class="five-b" aria-hidden="true"></span>五星</button><button type="button" data-group="mega" aria-pressed="true" aria-controls="calendar"><span class="mega-a" aria-hidden="true"></span><span class="mega-b" aria-hidden="true"></span>超級</button><button type="button" data-group="max" aria-pressed="true" aria-controls="calendar"><span class="max-a" aria-hidden="true"></span><span class="max-b" aria-hidden="true"></span>極巨對戰</button><button type="button" data-group="raidHour" aria-pressed="true" aria-controls="calendar"><span class="raid-hour" aria-hidden="true"></span>團體戰時刻</button><button type="button" data-group="spotlight" aria-pressed="true" aria-controls="calendar"><span class="spotlight" aria-hidden="true"></span>聚焦時刻</button><button type="button" data-group="s5" aria-pressed="false" aria-controls="calendar"><span class="shadow-a" aria-hidden="true"></span><span class="shadow-b" aria-hidden="true"></span>暗影五星</button><button type="button" data-group="low" aria-pressed="false" aria-controls="calendar"><span class="low" aria-hidden="true"></span>三星／一星</button></div><div class="tools"><label for="filter">細項篩選</label><select id="filter"><option value="">全部活動</option></select><button id="shadow">低星暗影陣容</button></div></details></div><div id="weekday-header" class="weekday-header"><div class="week-head"><div class="weekday">一</div><div class="weekday">二</div><div class="weekday">三</div><div class="weekday">四</div><div class="weekday">五</div><div class="weekday">六</div><div class="weekday">日</div></div></div></section>
+<div id="calendar" class="calendar-scroll"></div>
+</main>
+<dialog id="detail"><form method="dialog"><button>關閉</button></form><div id="body"></div></dialog>
+<script src="../calendar.js"></script>
+<script>
+if ('serviceWorker' in navigator && window.isSecureContext) {
+  navigator.serviceWorker.register('../sw.js').catch(error => {
+    console.warn('無法啟用行事曆的離線瀏覽', error);
+  });
+}
+</script>
+</html>

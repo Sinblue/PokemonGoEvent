@@ -3,7 +3,7 @@
   "name": "Pokémon GO 台灣活動行事曆",
   "short_name": "GO 活動月曆",
   "lang": "zh-Hant",
-  "start_url": "./",
+  "start_url": "./mobile/",
   "scope": "./",
   "display": "standalone",
   "background_color": "#f3f7f5",
