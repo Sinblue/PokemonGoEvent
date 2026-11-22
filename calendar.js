@@ -85,7 +85,7 @@ events.push(...[
  ['2026-11-19','敲音猴／炎兔兒／淚眼蜥','捕捉糖果 ×2'],
  ['2026-11-26','嗡蝠','捕捉糖果 ×2']
 ].map(([start,name,summary])=>({
- start,end:start,title:'聚焦時刻：'+name,stripName:name+' · 18:00',summary,time:start.slice(5).replace('-','/')+' 18:00–19:00',
+ start,end:start,title:'聚焦時刻：'+name,stripName:name,summary,time:start.slice(5).replace('-','/')+' 18:00–19:00',
  kind:'spotlight',color:'spotlight',links:[['聚焦時刻時程',spotlightSource]]
 })));
 
@@ -98,7 +98,7 @@ events.push(...[
  ['2026-11-18','克雷色利亞／達克萊伊'],
  ['2026-11-25','代歐奇希斯',previous[2].summary,'https://leekduck.com/events/raidhour20261125/']
 ].map(([start,name,summary,url])=>({
- start,end:start,title:name+'團體戰時刻',stripName:name+' · 18:00',summary,
+ start,end:start,title:name+'團體戰時刻',stripName:name,summary,
  time:start.slice(5).replace('-','/')+' 18:00–19:00',kind:'raidHour',color:'raid-hour',
  links:[['團體戰時刻時程',raidHourSource],...(url?[['場次詳情',url]]:[])]
 })));
@@ -189,7 +189,7 @@ if(sableyeOctober&&firstNovemberMax&&sableyeOctober.color===firstNovemberMax.col
 }
 const scheduled=(day,name,kind,summary)=>events.push({
  start:'2026-10-'+day,end:'2026-10-'+day,title:name+(kind==='raidHour'?'團體戰時刻':'聚焦時刻'),
- stripName:name+' · 18:00',time:'10/'+Number(day)+' 18:00–19:00',kind,color:kind==='raidHour'?'raid-hour':'spotlight',
+ stripName:name,time:'10/'+Number(day)+' 18:00–19:00',kind,color:kind==='raidHour'?'raid-hour':'spotlight',
  summary,links:[['GO Hub 10 月月表',october]]
 });
 for(const [day,name] of [['07','伊裴爾塔爾'],['14','帝牙盧卡'],['21','帕路奇亞'],['28','騎拉帝納（起源形態）']])scheduled(day,name,'raidHour');
@@ -203,8 +203,8 @@ for(const [start,end,title,color] of [
 
 
 const spotlightBonusTags=new Map([
- ['捕捉 XP ×2','補XP'],
- ['捕捉糖果 ×2','補糖'],
+ ['捕捉 XP ×2','捕XP'],
+ ['捕捉糖果 ×2','捕糖'],
  ['傳送糖果 ×2','傳糖'],
  ['捕捉星星沙子 ×2','補星'],
  ['進化 XP ×2','進XP']
@@ -295,7 +295,7 @@ const range=item=>item.time||label(parse(item.start))+(item.start===item.end?'':
 function button(item,index,extra='',style='',agenda=false){
  const name=item.stripName||item.title;
  const compact = mobileView && extra.includes(' span');
- const caption = compact ? (item.stripName || item.short || name).replace(/^\[[^\]]+\]\s*/, '') : name;
+ const caption = compact ? (item.stripName || item.short || name) : name;
  const badge=!compact && item.tier&&item.tier!=='low'?'<span class="tier">'+tierLabels[item.tier]+'</span>':'';
  return '<button class="event '+(item.raid?'raid ':'')+(item.color||'general')+extra+'" data-event="'+index+'" style="'+style+'" title="'+name+' · '+range(item)+'" aria-label="'+(item.tier?(categories[item.tier]||'三星與一星團體戰')+'，':'')+name+'，'+range(item)+'">'+badge+caption+(agenda?' · '+range(item):'')+'</button>';
 }
@@ -318,7 +318,7 @@ function weekRow(start,month){
   const from=item.start<keys[0]?0:keys.indexOf(item.start);
   const to=item.end>keys[6]?6:keys.indexOf(item.end);
   const mask=((1<<(to-from+1))-1)<<from;
-  const group=groupOf(item);
+  const group=item.kind==='spotlight' ? 'raidHour' : groupOf(item);
   if(group!==previousGroup){
    firstLane=lanes.length;
    previousGroup=group;
@@ -367,8 +367,7 @@ function renderMobileMonth() {
  const firstWeek=add(first,-offset);
  const weeks=Array.from({length:Math.ceil((offset+count)/7)},(_,i)=>weekRow(add(firstWeek,7*i),month));
  const items = dayItems(selected);
- $('calendar').innerHTML = '<div class="phone-month"><div class="phone-weekdays">'+
-  Array.from('一二三四五六日',d=>'<span>'+d+'</span>').join('')+'</div>'+weeks.join('')+'</div><h3>'+label(anchor)+' 活動</h3>'+
+ $('calendar').innerHTML = '<div class="phone-month">'+weeks.join('')+'</div><h3>'+label(anchor)+' 活動</h3>'+
   (items.length ? '<ul class="agenda">'+items.map(({item,index})=>'<li>'+button(item,index,'','',true)+'</li>').join('')+'</ul>' : '<p>這天沒有符合的活動。</p>');
 }
 function shift(direction){

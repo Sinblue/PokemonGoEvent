@@ -1,5 +1,5 @@
 const cachePrefix = 'pokemon-go-event-calendar-';
-const cacheName = cachePrefix + 'v5';
+const cacheName = cachePrefix + 'v6';
 const base = new URL(self.registration.scope);
 const index = new URL('index.html', base);
 const mobileIndex = new URL('mobile/index.html', base);
@@ -36,7 +36,7 @@ self.addEventListener('fetch', event => {
 
   const page = [index, mobileIndex].find(entry => url.pathname === entry.pathname || url.pathname === new URL('.', entry).pathname);
   // Activity data lives in calendar.js and can change between app releases.
-  const freshResource = request.mode === 'navigate' ? page : url.href === new URL('calendar.js', base).href ? url : null;
+  const freshResource = request.mode === 'navigate' ? page : assets.includes(url.href) && /\.(css|js)$/.test(url.pathname) ? url : null;
   if (freshResource) {
     event.respondWith((async () => {
       try {
