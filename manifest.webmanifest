@@ -1,0 +1,15 @@
+{
+  "id": "./",
+  "name": "Pokémon GO 台灣活動行事曆",
+  "short_name": "GO 活動月曆",
+  "lang": "zh-Hant",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f7f5",
+  "theme_color": "#103a3a",
+  "icons": [
+    { "src": "./icons/calendar-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/calendar-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

@@ -2,6 +2,9 @@
 <html lang="zh-Hant">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#103a3a">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/calendar-192.png">
 <title>Pokémon GO 活動行事曆</title>
 <style>
 :root{color-scheme:light;--ink:#122d32;--muted:#4f676a;--line:#cbd9d7;--paper:#f3f7f5}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px system-ui,sans-serif}header{background:#103a3a;color:#fff;padding:32px max(20px,calc((100% - 1120px)/2));}header p{margin:0;color:#aee1d0}h1{font-size:clamp(27px,5vw,44px);margin:6px 0 0}main{max-width:1160px;margin:auto;padding:24px 20px}.toolbar,.nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.toolbar{justify-content:space-between;margin-bottom:14px}button{font:inherit;color:inherit;cursor:pointer;border:1px solid var(--line);border-radius:7px;background:white;padding:8px 12px}button[aria-pressed=true]{background:#15554b;color:white}h2{margin:0 8px;font-size:22px}.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}.weekday,.day{background:white;padding:7px;min-width:0}.weekday{text-align:center;font-size:13px}.day{min-height:100px}.outside{background:#eaf1ef}.current strong{color:#056656;text-decoration:underline}.event{display:block;text-align:left;width:100%;margin:5px 0;padding:4px 6px;background:#e1f3ec;border:0;border-left:3px solid #267a66;font-size:13px;overflow-wrap:anywhere}.raid{background:#eeeafd;border-color:#6654ab}.agenda{list-style:none;padding:0;margin:0}.agenda li{border-top:1px solid var(--line);padding:12px 0}.agenda .event{font-size:16px;padding:10px}.muted{color:var(--muted);font-size:14px}dialog{width:min(640px,calc(100% - 24px));max-height:90dvh;border:0;border-radius:12px;padding:22px;color:inherit}dialog::backdrop{background:#092c32a9}dialog form{text-align:right}dialog h2{margin:4px 0}table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:8px 4px;text-align:left;border-bottom:1px solid var(--line)}a{color:#096755}@media(max-width:560px){main{padding:16px 10px}.day{padding:3px;min-height:63px}.event{font-size:11px;padding:3px 1px}.toolbar{align-items:flex-start}header{padding:20px}}
@@ -598,5 +601,12 @@ function showDetail(item){
 };
 $('detail').setAttribute('aria-labelledby','event-title');
 render();
+</script>
+<script>
+if ('serviceWorker' in navigator && window.isSecureContext) {
+  navigator.serviceWorker.register('./sw.js').catch(error => {
+    console.warn('無法啟用行事曆的離線瀏覽', error);
+  });
+}
 </script>
 </html>
