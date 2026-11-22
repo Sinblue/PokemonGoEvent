@@ -108,7 +108,7 @@ const dateKey = date => date.toISOString().slice(0,10);
 const parse = key => new Date(key+'T00:00:00Z');
 const add = (date,days) => new Date(date.getTime()+days*86400000);
 const taipeiToday = new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Taipei'}).format(new Date());
-let anchor = parse(taipeiToday.startsWith('2026-11') ? taipeiToday : '2026-11-22');
+let anchor = parse(taipeiToday);
 const mobileView = document.documentElement.dataset.layout === 'mobile';
 let mode = mobileView ? 'week' : 'month';
 const label = date => dateKey(date).slice(5).replace('-','/');
