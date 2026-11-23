@@ -6,6 +6,7 @@ header{background:#162f25;color:#f7fff2;padding-top:44px;padding-bottom:42px;bor
 header p{font-size:14px;letter-spacing:.13em;color:#cce8ab}
 h1{font-size:34px;letter-spacing:-.035em}
 main{padding-top:28px}
+.calendar-updated{margin-top:12px;color:var(--muted);font-size:12px;text-align:end}
 .toolbar{margin:18px 0 14px;gap:16px}
 button{border-radius:9px;min-height:38px}
 button[aria-pressed=true]{background:#244639}

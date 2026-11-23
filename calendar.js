@@ -1,3 +1,4 @@
+const dataUpdatedAt = '2026-11-23T07:59:07+08:00';
 const previous = [
  {title:'五星與超級團體戰輪替',short:'團體戰輪替',raid:true,start:'2026-11-16',end:'2026-11-24',time:'11/16 06:00–11/24 22:00',summary:'五星為克雷色利亞、達克萊伊，超級團體戰為超級詛咒娃娃。',community:'11/23 週報與 Leek Duck 的個別場次均列 11/24 22:00 結束。',links:[['GO Hub 11/23 週報','https://pokemongohub.net/post/news/this-week-in-pokemon-go-november-23-29-2026/'],['Leek Duck 五星','https://leekduck.com/events/cresselia-darkrai-in-5-star-raid-battles-november-2026/'],['Leek Duck 超級','https://leekduck.com/events/mega-banette-in-mega-raids-november-2026/'],['捕獲 CP 交叉查詢','https://www.hundo-hunter.com/raids'],['詛咒娃娃 CP','https://pokemongohub.net/post/guide/mega-banette-raid-guide/']],cp:[['克雷色利亞','1555–1633','1944–2041','強風'],['達克萊伊','2048–2136','2560–2671','霧'],['詛咒娃娃','1244–1313','1555–1642','霧']]},
  {title:'Twilight Wishes',short:'Twilight Wishes',start:'2026-11-24',end:'2026-11-30',time:'11/24 10:00 ～ 11/30 20:00',summary:'異色海星星與小灰怪出現機率提高。活動 GO Pass 第 10 級解鎖 2 倍捕捉星塵，豪華版為 3 倍。',community:'GO Hub 整理了服裝團體戰陣容，包含日之圍巾太陽伊布與月之圍巾月亮伊布。',links:[['官方公告','https://pokemongo.com/news/twilight-wishes-2026'],['GO Hub 攻略','https://pokemongohub.net/post/event/twilight-wishes-2026/']],raidPending:true},
@@ -524,4 +525,12 @@ function showDetail(item){
  $('detail').showModal();
 };
 $('detail').setAttribute('aria-labelledby','event-title');
+const dataUpdated = $('data-updated');
+if (dataUpdated) {
+ dataUpdated.dateTime = dataUpdatedAt;
+ dataUpdated.textContent = new Intl.DateTimeFormat('sv-SE', {
+  timeZone:'Asia/Taipei', dateStyle:'short', timeStyle:'short'
+ }).format(new Date(dataUpdatedAt));
+ dataUpdated.parentElement.hidden = false;
+}
 render();
