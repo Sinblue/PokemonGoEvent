@@ -1,7 +1,7 @@
-const dataUpdatedAt = '2026-11-23T07:59:07+08:00';
+const dataUpdatedAt = '2026-11-24T23:21:43+08:00';
 const previous = [
- {title:'五星與超級團體戰輪替',short:'團體戰輪替',raid:true,start:'2026-11-16',end:'2026-11-24',time:'11/16 06:00–11/24 22:00',summary:'五星為克雷色利亞、達克萊伊，超級團體戰為超級詛咒娃娃。',community:'11/23 週報與 Leek Duck 的個別場次均列 11/24 22:00 結束。',links:[['GO Hub 11/23 週報','https://pokemongohub.net/post/news/this-week-in-pokemon-go-november-23-29-2026/'],['Leek Duck 五星','https://leekduck.com/events/cresselia-darkrai-in-5-star-raid-battles-november-2026/'],['Leek Duck 超級','https://leekduck.com/events/mega-banette-in-mega-raids-november-2026/'],['捕獲 CP 交叉查詢','https://www.hundo-hunter.com/raids'],['詛咒娃娃 CP','https://pokemongohub.net/post/guide/mega-banette-raid-guide/']],cp:[['克雷色利亞','1555–1633','1944–2041','強風'],['達克萊伊','2048–2136','2560–2671','霧'],['詛咒娃娃','1244–1313','1555–1642','霧']]},
- {title:'Twilight Wishes',short:'Twilight Wishes',start:'2026-11-24',end:'2026-11-30',time:'11/24 10:00 ～ 11/30 20:00',summary:'異色海星星與小灰怪出現機率提高。活動 GO Pass 第 10 級解鎖 2 倍捕捉星塵，豪華版為 3 倍。',community:'GO Hub 整理了服裝團體戰陣容，包含日之圍巾太陽伊布與月之圍巾月亮伊布。',links:[['官方公告','https://pokemongo.com/news/twilight-wishes-2026'],['GO Hub 攻略','https://pokemongohub.net/post/event/twilight-wishes-2026/']],raidPending:true},
+ {title:'五星與超級團體戰輪替',short:'團體戰輪替',raid:true,start:'2026-11-16',end:'2026-11-24',time:'11/16 06:00–11/24（截止時間待確認）',summary:'五星為克雷色利亞、達克萊伊，超級團體戰為超級詛咒娃娃。',community:'GO Hub 11/24 頭目頁列 10:00，11/23 週報與 Leek Duck 個別場次列 22:00。',links:[['GO Hub 11/24 頭目頁','https://pokemongohub.net/post/guide/current-go-raids/'],['GO Hub 11/23 週報','https://pokemongohub.net/post/news/this-week-in-pokemon-go-november-23-29-2026/'],['Leek Duck 五星','https://leekduck.com/events/cresselia-darkrai-in-5-star-raid-battles-november-2026/'],['Leek Duck 超級','https://leekduck.com/events/mega-banette-in-mega-raids-november-2026/'],['捕獲 CP 交叉查詢','https://www.hundo-hunter.com/raids'],['詛咒娃娃 CP','https://pokemongohub.net/post/guide/mega-banette-raid-guide/']],cp:[['克雷色利亞','1555–1633','1944–2041','強風'],['達克萊伊','2048–2136','2560–2671','霧'],['詛咒娃娃','1244–1313','1555–1642','霧']]},
+ {title:'Twilight Wishes',short:'Twilight Wishes',start:'2026-11-24',end:'2026-11-30',time:'11/24 10:00 ～ 11/30 20:00',summary:'異色海星星與小灰怪出現機率提高。活動 GO Pass 第 10 級解鎖 2 倍捕捉星塵，豪華版為 3 倍。已解鎖的 GO Pass 獎勵可領到 12/2 20:00。',community:'GO Hub 整理了服裝團體戰陣容，包含日之圍巾太陽伊布與月之圍巾月亮伊布。',links:[['官方公告','https://pokemongo.com/news/twilight-wishes-2026'],['GO Hub 攻略','https://pokemongohub.net/post/event/twilight-wishes-2026/']],raidPending:true},
  {title:'代歐奇希斯團體戰時刻',short:'代歐奇希斯',raid:true,start:'2026-11-25',end:'2026-11-25',time:'11/25 18:00–19:00',summary:'普通、攻擊、防禦與速度四種形態登場。',links:[['Leek Duck','https://leekduck.com/events/']],raidPending:true},
  {title:'皮可西超級團體戰日',short:'超級皮可西',raid:true,start:'2026-11-28',end:'2026-11-28',time:'11/28 14:00–17:00',summary:'超級皮可西首次登場。道館最多提供 6 張免費入場券，捕獲的皮可西已解鎖超級等級 1。',links:[['官方公告','https://pokemongo.com/en/news/clefable-super-mega-raid-day-2026']],raidPending:true}
 ];
@@ -239,6 +239,17 @@ const decemberSources={
  community:'https://pokemongo.com/zh-Hant/news/community-day-december-2026',
  meteor:'https://pokemongo.com/news/minior-meteor-showers-2026'
 };
+events.push(
+ {title:'Daydream Destinations 新賽季開始',start:'2026-12-01',end:'2026-12-01',kind:'general',time:'12/1 10:00',
+  summary:'本賽季至 2027/3/1 10:00。超極巨千面避役與超極巨顫弦蠑螈將於本季極巨對戰日登場，個別日期待公布。',
+  links:[['官方賽季公告','https://pokemongo.com/seasons/daydream-destinations']]},
+ {title:'GO 對戰聯盟新賽季首週',start:'2026-12-02',end:'2026-12-09',kind:'general',time:'12/2 05:00–12/9 05:00',
+  summary:'超級聯盟、高級聯盟與大師聯盟皆開放超級進化寶可夢。勝場獎勵星星沙子 ×4，不含每組對戰結算獎勵。',
+  links:[['官方對戰聯盟公告','https://pokemongo.com/news/go-battle-league-daydream-destinations']]},
+ {title:'黃昏時分的心願 GO Pass 領獎截止',start:'2026-12-02',end:'2026-12-02',kind:'general',time:'12/2 20:00',
+  summary:'活動與累積 GO 點數於 11/30 20:00 結束，已解鎖的獎勵須在 12/2 20:00 前領取。',
+  links:[['官方繁中公告','https://pokemongo.com/zh-Hant/news/twilight-wishes-2026']]}
+);
 for(const [day,title,hours,slug] of [
  ['05','極巨對戰日','14:00–17:00','max-battle-day'],
  ['19','團體戰日','14:00–17:00','raid-day'],
