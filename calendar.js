@@ -1,4 +1,4 @@
-const dataUpdatedAt = '2026-11-25T23:11:49+08:00';
+const dataUpdatedAt = '2026-11-27T22:33:54+08:00';
 const previous = [
  {title:'五星與超級團體戰輪替',short:'團體戰輪替',raid:true,start:'2026-11-16',end:'2026-11-24',time:'11/16 06:00–11/24（截止時間待確認）',summary:'五星為克雷色利亞、達克萊伊，超級團體戰為超級詛咒娃娃。',community:'GO Hub 11/24 頭目頁列 10:00，11/23 週報與 Leek Duck 個別場次列 22:00。',links:[['GO Hub 11/24 頭目頁','https://pokemongohub.net/post/guide/current-go-raids/'],['GO Hub 11/23 週報','https://pokemongohub.net/post/news/this-week-in-pokemon-go-november-23-29-2026/'],['Leek Duck 五星','https://leekduck.com/events/cresselia-darkrai-in-5-star-raid-battles-november-2026/'],['Leek Duck 超級','https://leekduck.com/events/mega-banette-in-mega-raids-november-2026/'],['捕獲 CP 交叉查詢','https://www.hundo-hunter.com/raids'],['詛咒娃娃 CP','https://pokemongohub.net/post/guide/mega-banette-raid-guide/']],cp:[['克雷色利亞','1555–1633','1944–2041','強風'],['達克萊伊','2048–2136','2560–2671','霧'],['詛咒娃娃','1244–1313','1555–1642','霧']]},
  {title:'Twilight Wishes',short:'Twilight Wishes',start:'2026-11-24',end:'2026-11-30',time:'11/24 10:00 ～ 11/30 20:00',summary:'異色海星星與小灰怪出現機率提高。活動 GO Pass 第 10 級解鎖 2 倍捕捉星塵，豪華版為 3 倍。已解鎖的 GO Pass 獎勵可領到 12/2 20:00。',community:'GO Hub 整理了服裝團體戰陣容，包含日之圍巾太陽伊布與月之圍巾月亮伊布。',links:[['官方公告','https://pokemongo.com/news/twilight-wishes-2026'],['GO Hub 攻略','https://pokemongohub.net/post/event/twilight-wishes-2026/']],raidPending:true},
@@ -11,6 +11,12 @@ const decemberUpdate='https://pokemongo.com/zh-Hant/news/monthly-content-update-
 const leekEvents='https://leekduck.com/events/';
 const decemberLinks=[['官方 12 月更新',decemberUpdate],['Leek Duck 時段',leekEvents]];
 const therianRaidBosses='龍捲雲／雷電雲／土地雲（靈獸形態）';
+const tropicalAnnouncement='https://pokemongo.com/zh-Hant/news/tropical-paradise-2026';
+const inteleonAnnouncement='https://pokemongo.com/zh-Hant/news/gigantamax-inteleon-max-battle-day-2026';
+const championsAnnouncement='https://pokemongo.com/zh-Hant/news/pokemon-champions-celebration-event-2026';
+const championsTitle='《Pokémon Champions》聯名活動';
+const championsRotation='聯名傳說輪替';
+const championsRaidLineup='拉帝亞斯、拉帝歐斯、席多藍恩、勾帕路翁、代拉基翁、畢力吉翁、雷吉艾勒奇、雷吉鐸拉戈';
 const sources=[['Pokémon GO Hub','https://pokemongohub.net/post/guide/current-go-raids/'],['巴哈姆特 11 月活動首樓','https://forum.gamer.com.tw/C.php?bsn=29659&snA=49328&tnum=2']];
 const raid=(start,end,title,bosses,color,time)=>({start,end,title,short:title,bosses,color,time,raid:true,links:sources});
 const lowShadow={title:'低星暗影團體戰',summary:'已收錄這批頭目，換檔日期待確認。',bosses:{s3:'暗影波皇子、暗影長毛豬、暗影蚊香君',s1:'暗影幼基拉斯、暗影水躍魚、暗影幕下力士、暗影頭蓋龍'},links:sources};
@@ -40,7 +46,7 @@ const weekends=[
 const eventRaidDates=new Set(['2026-11-09','2026-11-14','2026-11-15']);
 const decemberRotations=[
  ['2026-12-02','2026-12-08','雷吉鐸拉戈','超級呆殼獸','12/2 06:00–12/8 22:00'],
- ['2026-12-09','2026-12-15','五星頭目待公布','超級耿鬼','12/9 06:00–12/15 22:00'],
+ ['2026-12-09','2026-12-15',championsRotation,'超級耿鬼','12/9 06:00–12/15 22:00'],
  ['2026-12-16','2026-12-22','鳳王','超級盔甲鳥','12/16 06:00–12/22 22:00'],
  ['2026-12-23','2026-12-29','洛奇亞','超級冰鬼護','12/23 06:00–12/29 22:00'],
  ['2026-12-30','2027-01-05',therianRaidBosses,'超級列陣兵','12/30 06:00–1/5 22:00']
@@ -77,6 +83,9 @@ const events=groupedEvents.flatMap(item=>{
  }
  return bands;
 });
+const championsFiveStar=events.find(item=>item.title===championsRotation);
+championsFiveStar.summary=championsRaidLineup+'於這一週排程輪替，每日陣容待公布。聯名特別背卡僅在 12/14 20:00 活動結束前可取得。';
+championsFiveStar.links=[['官方繁中公告',championsAnnouncement],['Leek Duck 輪替',leekEvents+'unannounced-pokemon-in-5-star-raid-battles-december-2026/']];
 
 const maxMonday='https://pokemongohub.net/post/guide/max-monday-schedule/';
 const spotlightSource='https://pokemongohub.net/post/guide/spotlight-hour-schedule/';
@@ -132,7 +141,7 @@ events.push(...[
  ['2026-11-18','克雷色利亞／達克萊伊'],
  ['2026-11-25','代歐奇希斯',previous[2].summary,'https://leekduck.com/events/raidhour20261125/'],
  ['2026-12-02','雷吉鐸拉戈',undefined,decemberUpdate],
- ['2026-12-09','頭目待公布',undefined,decemberUpdate],
+ ['2026-12-09','頭目待公布','聯名傳說輪替名單已公布，本場 18:00–19:00 的出場頭目待確認。',championsAnnouncement],
  ['2026-12-16','鳳王',undefined,decemberUpdate],
  ['2026-12-23','洛奇亞',undefined,decemberUpdate],
  ['2026-12-30',therianRaidBosses,undefined,decemberUpdate]
@@ -277,7 +286,7 @@ events.push(
   summary:'免費路線可遇見酋雷姆，有機會遇見異色。已解鎖獎勵須於 1/7 10:00 前領取。豪華版達 20 級可領限時孵化器，有效至 1/12 10:00。',
   links:[['官方繁中公告','https://pokemongo.com/zh-Hant/news/go-pass-december-2026']]},
  {title:'Daydream Destinations 新賽季開始',start:'2026-12-01',end:'2026-12-01',kind:'general',time:'12/1 10:00',
-  summary:'本賽季至 2027/3/1 10:00。超極巨千面避役與超極巨顫弦蠑螈將於本季極巨對戰日登場，個別日期待公布。',
+  summary:'本賽季至 2027/3/1 10:00。超極巨化千面避役於 12/5 的極巨對戰日登場，超極巨化顫弦蠑螈的日期待公布。',
   links:[['官方賽季公告','https://pokemongo.com/seasons/daydream-destinations']]},
  {title:'GO 對戰聯盟新賽季首週',start:'2026-12-02',end:'2026-12-09',kind:'general',time:'12/2 05:00–12/9 05:00',
   summary:'超級聯盟、高級聯盟與大師聯盟皆開放超級進化寶可夢。勝場獎勵星星沙子 ×4，不含每組對戰結算獎勵。',
@@ -287,20 +296,40 @@ events.push(
   links:[['官方繁中公告','https://pokemongo.com/zh-Hant/news/twilight-wishes-2026']]},
  {title:'自選路線限時調查',start:'2026-12-15',end:'2026-12-21',kind:'general',time:'12/15 10:00–12/21 20:00',
   summary:'可從探索、捕捉或對戰選一條路線，各有不同課題與加碼。須在期限前完成課題及領獎，截止時區以領取調查時所在地為準。',
-  links:[['官方公告','https://pokemongo.com/news/choose-your-path-daydream-destinations-2026']]}
+  links:[['官方公告','https://pokemongo.com/news/choose-your-path-daydream-destinations-2026']]},
+ {title:'熱帶樂園',start:'2026-12-01',end:'2026-12-07',kind:'general',time:'12/1 10:00–12/7 20:00',
+  sections:{
+   debut:['拳海參首次登場，可透過三星團體戰或活動 GO Pass 遇見，並可學會浸水。'],
+   shiny:['拳海參有機會以異色登場。'],
+   bonuses:['活動 GO Pass 10 級解鎖團體戰 XP ×2。20 級解鎖探索超級能量 ×5，須曾超級進化呆殼獸，並以呆呆獸、呆殼獸或呆呆王為夥伴。'],
+   wild:['可遇見呆呆獸*、大舌貝*、長翅鷗*、懶人獺*，也有機會遇見卡比獸*。','12/4 10:00 起至活動結束，追加毽子草*、蓮葉童子*、蘑蘑菇*，也有機會遇見椰蛋樹（阿羅拉的樣子）*。','* 有機會遇見異色。'],
+   raids:['一星：地鼠（阿羅拉的樣子）*、輕飄飄（雌性）*、輕飄飄（雄性）*、沙丘娃*。','三星：拳海參*。','* 有機會遇見異色。'],
+   other:['超級呆殼獸可從頂尖級提升至超級頂尖級，並可學會潑冷水＋。部分活動田野調查可獲得呆殼獸超級能量。','活動 GO Pass 獎勵可領至 12/9 20:00。']
+  },links:[['官方繁中公告',tropicalAnnouncement],['Leek Duck 場次',leekEvents+'tropical-paradise-2026/']]},
+ {title:'超極巨化千面避役極巨對戰日',stripName:'千面避役極巨對戰日',start:'2026-12-05',end:'2026-12-05',kind:'general',time:'12/5 14:00–17:00',
+  sections:{
+   shiny:['異色超極巨化千面避役首次開放。'],
+   bonuses:['活動期間，能量點增加、刷新更頻繁，能量點極巨粒子 ×8，蒐集上限 1,600，當日最多可進行 3 次特殊交換。','12/5 00:00–17:00，探索獲得極巨粒子 ×2，領取所需探索距離降至 1/4，適用條件見官方公告。','12/5 08:00–12/6 12:00，遠距團體戰上限提高至 20。'],
+   raids:['六星極巨對戰：超極巨化千面避役。'],
+   other:['付費限時調查與極巨對戰 XP ×2 於 14:00–17:00 生效。調查獎勵為 1 個極巨菇菇、25,000 XP 和 6,400 極巨粒子。']
+  },links:[['官方繁中公告',inteleonAnnouncement]]},
+ {title:championsTitle,stripName:'Pokémon Champions 聯名',start:'2026-12-08',end:'2026-12-14',kind:'general',time:'12/8 10:00–12/14 20:00',
+  sections:{
+   bonuses:['寶可補給站遇見變隱龍的機率提高。','活動 GO Pass 1 級解鎖 GO 傳送裝置每小時能量 ×7。10 級解鎖捕捉糖果 ×2，與 12 月社群日加碼無法疊加。20 級每場完成的團體戰額外獲得 3,000 XP，豪華版每日最多可從道館轉盤領 2 張免費入場券。'],
+   wild:['可遇見小火龍*、姆克兒*、敲音猴*，也有機會遇見阿勃梭魯*、圓陸鯊*。','* 有機會遇見異色。'],
+   raids:['一星：寶貝龍、火斑喵、涼脊龍。','三星：雷丘、烈咬陸鯊、轟擂金剛猩。','12/9–12/15 傳說輪替：'+championsRaidLineup+'。每日陣容待公布。特別背卡僅可於聯名活動期間取得。'],
+   other:['活動田野調查可取得神奇糖果。已解鎖的活動 GO Pass 獎勵可領至 12/16 20:00。']
+  },links:[['官方繁中公告',championsAnnouncement],['Leek Duck 場次',leekEvents+'pokemon-champions-celebration-event-2026/']]}
 );
 for(const [title,start,end,time,slug] of [
- ['熱帶樂園','2026-12-01','2026-12-07','12/1 10:00–12/7 20:00','tropical-paradise-2026'],
- ['未公開活動','2026-12-08','2026-12-14','12/8 10:00–12/14 20:00',''],
  ['冬季假日','2026-12-22','2026-12-28','12/22 10:00–12/28 20:00','winter-holiday-2026'],
  ['2027 新年活動','2026-12-29','2027-01-04','12/29 10:00–1/4 20:00','new-years-2027']
 ]){
  events.push({title,start,end,kind:'general',time:time+'（Leek Duck）',
   summary:'官方月報已列活動日期，主打寶可夢與加碼待公布。',
-  links:slug?[['官方 12 月更新',decemberUpdate],['Leek Duck 場次',leekEvents+slug+'/']]:decemberLinks});
+  links:[['官方 12 月更新',decemberUpdate],['Leek Duck 場次',leekEvents+slug+'/']]});
 }
 for(const [day,title,hours,slug] of [
- ['05','極巨對戰日','14:00–17:00','max-battle-day'],
  ['19','團體戰日','14:00–17:00','raid-day'],
  ['26','孵化日','11:00–17:00','hatch-day']
 ]){
@@ -505,6 +534,25 @@ const shadowLowCP=[["暗影波皇子","868–972","1086–1215","下雨",948,118
  ...addCP(name,lv20,lv25,weather,currentRaids),purifyCP:{lv20:cp20,lv25:cp25}
 }));
 const tables={
+ '熱帶樂園':[
+  addCP('地鼠（阿羅拉的樣子）','352–389','440–486','晴天／下雪',hub+'50-Alola/iv-chart'),
+  addCP('輕飄飄（雌性／雄性）','668–718','835–898','下雨／霧',leekEvents+'tropical-paradise-2026/'),
+  addCP('沙丘娃','655–705','819–881','晴天／霧',hub+'769/iv-chart'),
+  addCP('拳海參','729–784','912–980','下雨',hub+'771/iv-chart')
+ ],
+ '超極巨化千面避役極巨對戰日':[
+  addCP('超極巨化千面避役','1614–1693',null,null,hub+'818-Gigantamax/iv-chart')
+ ],
+ [championsRotation]:[
+  addCP('拉帝亞斯','1921–2006','2402–2507','強風',hub+'380/iv-chart'),
+  addCP('拉帝歐斯','2090–2178','2613–2723','強風',hub+'381/iv-chart'),
+  addCP('席多藍恩','2058–2145','2573–2681','晴天／下雪',hub+'485/iv-chart'),
+  addCP('勾帕路翁','1649–1727','2061–2159','下雪／陰天',hub+'638/iv-chart'),
+  addCP('代拉基翁','2026–2113','2533–2641','局部多雲／陰天',hub+'639/iv-chart'),
+  addCP('畢力吉翁','1649–1727','2061–2159','晴天／陰天',hub+'640/iv-chart'),
+  addCP('雷吉艾勒奇','1524–1602','1905–2002','下雨',hub+'894/iv-chart'),
+  addCP('雷吉鐸拉戈','1614–1699','2017–2124','強風',hub+'895/iv-chart')
+ ],
  '雷吉鐸拉戈':[addCP('雷吉鐸拉戈','1614–1699','2017–2124','強風',hub+'895/iv-chart')],
  '超級呆殼獸':[addCP('呆殼獸','1382–1454','1728–1817','下雨／強風',hub+'80/iv-chart')],
  '超級耿鬼':[addCP('耿鬼','1566–1644','1958–2055','霧／陰天',hub+'94/iv-chart')],
@@ -546,6 +594,15 @@ const tables={
   maxCP('雷吉斯奇魯','1326–1398',379),maxCP('雷吉鐸拉戈','1614–1699',895),
   maxCP('拉帝亞斯','1921–2006',380),maxCP('拉帝歐斯','2090–2178',381)]
 };
+tables[championsTitle]=[
+ addCP('寶貝龍','612–660','765–826','強風',hub+'371/iv-chart'),
+ addCP('火斑喵','545–591','682–739','晴天',hub+'725/iv-chart'),
+ addCP('涼脊龍','662–712','827–891','強風／下雪',hub+'996/iv-chart'),
+ addCP('雷丘','1180–1247','1476–1558','下雨',hub+'26/iv-chart'),
+ addCP('烈咬陸鯊','2174–2264','2718–2830','強風／晴天',hub+'445/iv-chart'),
+ addCP('轟擂金剛猩','1817–1899','2272–2374','晴天',hub+'812/iv-chart'),
+ ...tables[championsRotation]
+];
 for(const name of ['雷吉鐸拉戈','鳳王','洛奇亞',therianRaidBosses]){
  tables[name+'團體戰時刻']=tables[name];
 }
